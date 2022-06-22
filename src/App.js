@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import { API, Storage, Auth } from 'aws-amplify';
-import { withAuthenticator, Authenticator } from '@aws-amplify/ui-react';
+import { withAuthenticator } from '@aws-amplify/ui-react';
 import { listTodos } from './graphql/queries';
 import { createTodo as createNoteMutation, deleteTodo as deleteNoteMutation } from './graphql/mutations';
 
@@ -114,9 +114,9 @@ function App() {
   }
 
   function signOut() {
-    Auth.signOut()
-    .then(data => console.log(data))
-    .catch(err => console.log(err));
+    Auth.signOut().then(x => {
+      window.location.reload(false);
+    });
   }
 
   const classes = useStyles();
@@ -210,8 +210,7 @@ function App() {
           }
           </Grid>
           </List>
-        <button onClick={signOut} className="signOutButton">SignOut</button>
-        <Authenticator/>
+          <button onClick={signOut} className="amplify-button amplify-field-group__control amplify-button--primary amplify-button--fullwidth">Sair</button>
      </Box>
     </div>
     
